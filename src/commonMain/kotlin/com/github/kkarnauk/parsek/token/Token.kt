@@ -1,5 +1,7 @@
 package com.github.kkarnauk.parsek.token
 
+import com.github.kkarnauk.parsek.token.types.TokenType
+
 public data class Token(
     public val type: TokenType,
     public val index: Int,

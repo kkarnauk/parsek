@@ -1,5 +1,7 @@
 package com.github.kkarnauk.parsek.token
 
+import com.github.kkarnauk.parsek.token.types.TokenType
+
 public interface Tokenizer {
     public fun tokenize(input: CharSequence): TokenProducer
 }

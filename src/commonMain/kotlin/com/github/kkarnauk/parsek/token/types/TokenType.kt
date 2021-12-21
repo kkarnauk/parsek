@@ -1,7 +1,7 @@
-package com.github.kkarnauk.parsek.token
+package com.github.kkarnauk.parsek.token.types
 
 /**
- * Represents different tokens before tokenizing. After that, they transform into [Token].
+ * Represents different tokens before tokenizing.
  */
 public interface TokenType {
     /**
@@ -20,3 +20,8 @@ public interface TokenType {
      */
     public fun match(input: CharSequence, fromIndex: Int): Int
 }
+
+public abstract class AbstractTokenType(
+    override val name: String,
+    override val ignored: Boolean
+) : TokenType
