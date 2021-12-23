@@ -1,5 +1,6 @@
 package com.github.kkarnauk.parsek.token
 
+import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.types.TokenType
 
 public interface Tokenizer {
@@ -37,7 +38,7 @@ public class DefaultTokenizer(private val tokenTypes: List<TokenType>) : Tokeniz
                 state.advance(input[offset + it])
             }
             if (!type.ignored) {
-                return Token(type, state.tokenIndex, input, length, Token.Location(offset, row, column))
+                return Token(type, state.tokenIndex, input, length, Location(offset, row, column))
             }
         }
     }
