@@ -18,6 +18,16 @@ public interface IndexedTokenProducer : TokenProducer {
      * Returns a token by an index.
      */
     public operator fun get(index: Int): Token
+
+    /**
+     * Returns a token by index or null if [index] is out of range.
+     */
+    public fun getOrNull(index: Int): Token?
+
+    /**
+     * Returns the last produced token or `null` if nothing was produced.
+     */
+    public val lastToken: Token?
 }
 
 /**
@@ -28,14 +38,28 @@ public fun TokenProducer.indexed(): IndexedTokenProducer = when (this) {
     else -> object : IndexedTokenProducer {
         private val tokens = mutableListOf<Token>()
 
+        override val lastToken: Token? = tokens.lastOrNull()
+
         override fun nextToken(): Token? = this@indexed.nextToken()?.also { tokens += it }
 
         override fun get(index: Int): Token {
             require(index >= 0) { "Index must be non-negative." }
+            return requireNotNull(getOrNull(index)) {
+                "Cannot get a token by index $index: too big."
+            }
+        }
+
+        override fun getOrNull(index: Int): Token? {
+            if (index < 0) {
+                return null
+            }
             while (tokens.size < index + 1) {
+                if (nextToken() == null) {
+                    break
+                }
                 requireNotNull(nextToken()) { "Cannot get a token by index $index: too big." }
             }
-            return tokens[index]
+            return tokens.getOrNull(index)
         }
     }
 }
