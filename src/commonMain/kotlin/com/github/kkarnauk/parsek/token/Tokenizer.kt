@@ -3,10 +3,21 @@ package com.github.kkarnauk.parsek.token
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.types.TokenType
 
+/**
+ * Required to transform a text into [TokenProducer].
+ */
 public interface Tokenizer {
+    /**
+     * Transforms [input] into [TokenProducer].
+     */
     public fun tokenize(input: CharSequence): TokenProducer
 }
 
+/**
+ * Default implementation of tokenizer:
+ * * On each step looks for the token with the longest matched part
+ * * Doesn't return tokens with [TokenType.ignored] `= true`
+ */
 public class DefaultTokenizer(private val tokenTypes: List<TokenType>) : Tokenizer {
     init {
         require(tokenTypes.isNotEmpty()) { "Tokens types must be non-empty." }
@@ -33,12 +44,12 @@ public class DefaultTokenizer(private val tokenTypes: List<TokenType>) : Tokeniz
             }
 
             val (length, type) = bestMatch
-            val (offset, row, column, _) = state
+            val (offset, row, column) = state
             repeat(length) {
                 state.advance(input[offset + it])
             }
             if (!type.ignored) {
-                return Token(type, state.tokenIndex, input, length, Location(offset, row, column))
+                return Token(type, input, length, Location(offset, row, column))
             }
         }
     }
@@ -62,7 +73,6 @@ public class DefaultTokenizer(private val tokenTypes: List<TokenType>) : Tokeniz
         var offset: Int = 0,
         var row: Int = 1,
         var column: Int = 1,
-        var tokenIndex: Int = 0
     ) {
         fun advance(symbol: Char) {
             if (symbol == '\n') {

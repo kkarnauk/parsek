@@ -1,5 +1,8 @@
 package com.github.kkarnauk.parsek.token.types
 
+/**
+ * Represents a token that tries to match the given regex from an index in an input.
+ */
 public class RegexTokenType(
     regex: String,
     options: Set<RegexOption>,

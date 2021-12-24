@@ -26,6 +26,9 @@ public interface TokenType : OrdinaryParser<Token> {
     public fun match(input: CharSequence, fromIndex: Int): Int
 }
 
+/**
+ * Intermediate class to implement all other token types.
+ */
 public abstract class AbstractTokenType(
     override val name: String,
     override val ignored: Boolean
