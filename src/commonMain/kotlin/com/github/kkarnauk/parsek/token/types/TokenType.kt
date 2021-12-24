@@ -1,9 +1,14 @@
 package com.github.kkarnauk.parsek.token.types
 
+import com.github.kkarnauk.parsek.info.EmptyLocation
+import com.github.kkarnauk.parsek.parser.*
+import com.github.kkarnauk.parsek.token.IndexedTokenProducer
+import com.github.kkarnauk.parsek.token.Token
+
 /**
  * Represents different tokens before tokenizing.
  */
-public interface TokenType {
+public interface TokenType : OrdinaryParser<Token> {
     /**
      * Whether this token type should or shouldn't be passed to a parser.
      */
@@ -24,4 +29,18 @@ public interface TokenType {
 public abstract class AbstractTokenType(
     override val name: String,
     override val ignored: Boolean
-) : TokenType
+) : TokenType {
+    override fun parse(tokenProducer: IndexedTokenProducer, fromIndex: Int): ParseResult<Token> {
+        val token = tokenProducer.getOrNull(fromIndex)
+        return when {
+            token == null -> {
+                val location = tokenProducer.lastToken?.location ?: EmptyLocation
+                unexpectedEofFailure(this, location)
+            }
+            token.type === this -> ParsedValue(token, fromIndex + 1)
+            else -> MismatchTokenTypeFailure(token.location, this, token.type)
+        }
+    }
+
+    override fun toString(): String = name
+}
