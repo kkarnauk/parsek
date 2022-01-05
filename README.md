@@ -1,4 +1,7 @@
 # parsek
+
+[![Build and Tests](https://github.com/kkarnauk/parsek/actions/workflows/build_test.yml/badge.svg)](https://github.com/kkarnauk/parsek/actions/workflows/build_test.yml)
+
 Parser combinators for Kotlin. It's **under development** right now.
 
 ## Inspiration
