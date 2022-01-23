@@ -12,7 +12,7 @@ public class RegexTokenType(
     private val matcher = "^$regex".toRegex(options)
 
     override fun match(input: CharSequence, fromIndex: Int): Int {
-        val match = matcher.find(input, fromIndex)
-        return if (match != null) match.range.last - match.range.first else 0
+        val match = matcher.find(input.subSequence(fromIndex, input.length)) // TODO temporary solution
+        return if (match != null) match.range.last - match.range.first + 1 else 0
     }
 }
