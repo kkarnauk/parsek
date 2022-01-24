@@ -5,7 +5,7 @@ import com.github.kkarnauk.parsek.token.IndexedTokenProducer
 /**
  * Required to parse input and return [ParseResult] of [T].
  */
-public interface Parser<out T> {
+public sealed interface Parser<out T> {
     /**
      * Tries to parse tokens from [tokenProducer] starting from [fromIndex].
      */
@@ -20,4 +20,4 @@ public interface OrdinaryParser<out T> : Parser<T>
 /**
  * Parser that ignores parsing results. For more information check for combinators.
  */
-public interface SkipParser<out T> : Parser<T>
+public class SkipParser<out T> internal constructor(internal val inner: OrdinaryParser<T>) : Parser<T> by inner
