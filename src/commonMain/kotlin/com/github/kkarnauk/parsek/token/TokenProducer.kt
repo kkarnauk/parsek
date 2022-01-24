@@ -57,7 +57,6 @@ public fun TokenProducer.indexed(): IndexedTokenProducer = when (this) {
                 if (nextToken() == null) {
                     break
                 }
-                requireNotNull(nextToken()) { "Cannot get a token by index $index: too big." }
             }
             return tokens.getOrNull(index)
         }
