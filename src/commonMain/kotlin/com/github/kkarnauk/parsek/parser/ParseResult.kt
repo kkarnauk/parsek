@@ -73,3 +73,12 @@ public data class MismatchTokenTypeFailure(
 public fun unexpectedEofFailure(expected: TokenType, location: Location): LocatedParseError {
     return MismatchTokenTypeFailure(location, expected, EofTokenType)
 }
+
+public data class NoSuchAlternativeFailure(
+    override val location: Location,
+    private val alternativeFailures: List<ParseFailure>
+) : LocatedParseError {
+    // TODO nicer message
+    override val message: String
+        get() = "No such appropriate alternative:\n ${alternativeFailures.joinToString("\n") { it.message }}"
+}
