@@ -3,11 +3,20 @@ package com.github.kkarnauk.parsek.token
 /**
  * Produces tokens one by one. For example, tokenizer is a tokens' producer.
  */
-public interface TokenProducer {
+public interface TokenProducer : Iterable<Token> {
     /**
      * Tries to produce a new token. If no tokens left, returns `null`.
      */
     public fun nextToken(): Token?
+
+    override fun iterator(): Iterator<Token> = object : AbstractIterator<Token>() {
+        override fun computeNext() {
+            when (val value = nextToken()) {
+                null -> done()
+                else -> setNext(value)
+            }
+        }
+    }
 }
 
 /**
