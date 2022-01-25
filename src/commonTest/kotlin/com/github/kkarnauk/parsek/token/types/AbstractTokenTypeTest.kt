@@ -1,9 +1,10 @@
 package com.github.kkarnauk.parsek.token.types
 
+import com.github.kkarnauk.parsek.ParsekTest
 import kotlin.properties.Delegates
 import kotlin.test.assertEquals
 
-internal abstract class AbstractTokenTypeTest<T : TokenType> {
+internal abstract class AbstractTokenTypeTest<T : TokenType> : ParsekTest() {
     protected inner class InsideTest {
         var token by Delegates.notNull<T>()
         var text by Delegates.notNull<CharSequence>()
@@ -18,6 +19,4 @@ internal abstract class AbstractTokenTypeTest<T : TokenType> {
     protected fun doTest(block: InsideTest.() -> Unit) {
         InsideTest().apply(block).apply { test() }
     }
-
-    protected val name = "Some name"
 }

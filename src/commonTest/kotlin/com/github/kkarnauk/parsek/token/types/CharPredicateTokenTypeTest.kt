@@ -5,14 +5,14 @@ import kotlin.test.Test
 internal class CharPredicateTokenTypeTest : AbstractTokenTypeTest<CharPredicateTokenType>() {
     @Test
     fun testFullMatch() = doTest {
-        token = CharPredicateTokenType(name, false) { it.isLowerCase() }
+        token = CharPredicateTokenType(tokenTypeName(), false) { it.isLowerCase() }
         text = "rock"
         expectedLength = 4
     }
 
     @Test
     fun testMiddleMatch() = doTest {
-        token = CharPredicateTokenType(name, false) { it.isLetter() }
+        token = CharPredicateTokenType(tokenTypeName(), false) { it.isLetter() }
         text = "Give me, plEaSe, 10 dollars."
         fromIndex = 9
         expectedLength = 6
@@ -20,14 +20,14 @@ internal class CharPredicateTokenTypeTest : AbstractTokenTypeTest<CharPredicateT
 
     @Test
     fun testPrefixMatch() = doTest {
-        token = CharPredicateTokenType(name, false) { it.isDigit() }
+        token = CharPredicateTokenType(tokenTypeName(), false) { it.isDigit() }
         text = "15 dollars"
         expectedLength = 2
     }
 
     @Test
     fun testIncorrectIndex() = doTest {
-        token = CharPredicateTokenType(name, false) { it.isDigit() }
+        token = CharPredicateTokenType(tokenTypeName(), false) { it.isDigit() }
         text = "15 dollars"
         fromIndex = 3
         expectedLength = 0
@@ -40,7 +40,7 @@ internal class CharPredicateTokenTypeTest : AbstractTokenTypeTest<CharPredicateT
 
     @Test
     fun testComplexCondition() = doTest {
-        token = CharPredicateTokenType(name, false, object : CharToBoolean {
+        token = CharPredicateTokenType(tokenTypeName(), false, object : CharToBoolean {
             var last = -1
             override fun invoke(c: Char) = (last < c.code).apply { last = c.code }
         }::invoke)
