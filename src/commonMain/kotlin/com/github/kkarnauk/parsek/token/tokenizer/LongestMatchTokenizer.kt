@@ -1,6 +1,8 @@
-package com.github.kkarnauk.parsek.token
+package com.github.kkarnauk.parsek.token.tokenizer
 
 import com.github.kkarnauk.parsek.info.Location
+import com.github.kkarnauk.parsek.token.Token
+import com.github.kkarnauk.parsek.token.TokenProducer
 import com.github.kkarnauk.parsek.token.types.TokenType
 
 /**

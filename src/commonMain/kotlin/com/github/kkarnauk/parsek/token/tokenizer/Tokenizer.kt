@@ -1,4 +1,6 @@
-package com.github.kkarnauk.parsek.token
+package com.github.kkarnauk.parsek.token.tokenizer
+
+import com.github.kkarnauk.parsek.token.TokenProducer
 
 /**
  * Required to transform a text into [TokenProducer].
