@@ -3,7 +3,7 @@ package com.github.kkarnauk.parsek.info
 /**
  * Represents a location in an input.
  */
-public class Location(
+public data class Location(
     /**
      * Number of characters before the location.
      */
