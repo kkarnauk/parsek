@@ -7,7 +7,7 @@ import com.github.kkarnauk.parsek.token.types.TokenType
  *
  * Required because you cannot access actual token types in a grammar.
  */
-public interface TokenizerSupplier<T : Tokenizer> {
+public interface TokenizerSupplier<out T : Tokenizer> {
     public fun supply(tokenTypes: List<TokenType>): T
 }
 
