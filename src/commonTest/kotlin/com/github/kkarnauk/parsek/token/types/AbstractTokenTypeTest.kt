@@ -5,9 +5,9 @@ import kotlin.properties.Delegates
 import kotlin.test.assertEquals
 
 internal abstract class AbstractTokenTypeTest<T : TokenType> : ParsekTest() {
-    protected inner class InsideTest {
+    protected inner class InsideTest : AbstractInsideTest() {
+        override var text by Delegates.notNull<CharSequence>()
         var token by Delegates.notNull<T>()
-        var text by Delegates.notNull<CharSequence>()
         var fromIndex = 0
         var expectedLength by Delegates.notNull<Int>()
 

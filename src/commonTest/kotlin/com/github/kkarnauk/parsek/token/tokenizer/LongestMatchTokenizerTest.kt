@@ -19,16 +19,16 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
         val one by LiteralTokenType("1", false, tokenTypeName(), false)
         val ws by RegexTokenType("\\s+", setOf(), tokenTypeName(), true)
         expectedTokenDescriptions = listOf(
-            describe(one, 0, 1),
-            describe(zero, 2, 1),
-            describe(zero, 4, 1),
-            describe(zero, 5, 1),
-            describe(one, 7, 1),
-            describe(one, 9, 1),
-            describe(zero, 11, 1),
-            describe(one, 14, 1),
-            describe(zero, 19, 1),
-            describe(one, 22, 1)
+            describeToken(one, 0, 1),
+            describeToken(zero, 2, 1),
+            describeToken(zero, 4, 1),
+            describeToken(zero, 5, 1),
+            describeToken(one, 7, 1),
+            describeToken(one, 9, 1),
+            describeToken(zero, 11, 1),
+            describeToken(one, 14, 1),
+            describeToken(zero, 19, 1),
+            describeToken(one, 22, 1)
         )
     }
 
@@ -48,22 +48,22 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
         val eq by CharTokenType('=', false, tokenTypeName(), false)
         val ws by RegexTokenType("\\s+", setOf(), tokenTypeName(), true)
         expectedTokenDescriptions = listOf(
-            describe(dataName, 0, 6),
-            describe(lp, 6, 1),
-            describe(nameField, 7, 4),
-            describe(eq, 11, 1),
-            describe(quote, 12, 1),
-            describe(str, 13, 15),
-            describe(quote, 28, 1),
-            describe(ageField, 30, 3),
-            describe(eq, 33, 1),
-            describe(num, 34, 2),
-            describe(hobbiesField, 37, 7),
-            describe(eq, 44, 1),
-            describe(quote, 45, 1),
-            describe(str, 46, 9),
-            describe(quote, 55, 1),
-            describe(rp, 56, 1)
+            describeToken(dataName, 0, 6),
+            describeToken(lp, 6, 1),
+            describeToken(nameField, 7, 4),
+            describeToken(eq, 11, 1),
+            describeToken(quote, 12, 1),
+            describeToken(str, 13, 15),
+            describeToken(quote, 28, 1),
+            describeToken(ageField, 30, 3),
+            describeToken(eq, 33, 1),
+            describeToken(num, 34, 2),
+            describeToken(hobbiesField, 37, 7),
+            describeToken(eq, 44, 1),
+            describeToken(quote, 45, 1),
+            describeToken(str, 46, 9),
+            describeToken(quote, 55, 1),
+            describeToken(rp, 56, 1)
         )
     }
 
@@ -76,9 +76,9 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
         val aaa by LiteralTokenType("aaa", false, tokenTypeName(), false)
         val ws by CharPredicateTokenType(tokenTypeName(), true) { it.isWhitespace() }
         expectedTokenDescriptions = listOf(
-            describe(a, 0, 1),
-            describe(aa, 4, 2),
-            describe(aaa, 8, 3)
+            describeToken(a, 0, 1),
+            describeToken(aa, 4, 2),
+            describeToken(aaa, 8, 3)
         )
     }
 
