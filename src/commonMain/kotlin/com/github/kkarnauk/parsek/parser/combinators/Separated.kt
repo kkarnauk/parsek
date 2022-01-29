@@ -42,6 +42,7 @@ private class SeparatedCombinator<T, S, R>(
 
 /**
  * @return [OrdinaryParser] that applies [item], [separator], [item], [separator] and so on as many as possible.
+ * If the last element is [separator], then it will not be used.
  * If [allowEmpty] is `true`, then no parsers may be applied.
  */
 public fun <T> separated(
@@ -52,18 +53,22 @@ public fun <T> separated(
 
 /**
  * @return [SkipParser] that applies [item], [separator], [item], [separator] and so on as many as possible.
+ * If the last element is [separator], then it will not be used.
  * If [allowEmpty] is `true`, then no parsers may be applied.
  */
 public fun <T> separated(
     item: SkipParser<T>,
     separator: Parser<*>,
     allowEmpty: Boolean = false
-): SkipParser<List<T>> = SeparatedCombinator(item.inner, separator.toOrdinary(), allowEmpty) { x, _ -> x }.skip()
+): SkipParser<List<T>> = separated(item.inner, separator, allowEmpty).skip()
 
 /**
  * @return [OrdinaryParser] that applies [item], [separator], [item], [separator] and so on as many as possible.
  * After that it folds the result from the left to the right.
  * If the last applied parser is [separator] then it is ignored.
+ *
+ * It is important that the initial value is `items[0]`,
+ * on i-th step the result is `transform(last_res, items[`i`], separators[i - 1])`.
  */
 public fun <T : R, S, R> leftAssociative(
     item: OrdinaryParser<T>,
@@ -100,6 +105,9 @@ public fun <T : R, R> leftAssociative(
  * @return [OrdinaryParser] that applies [item], [separator], [item], [separator] and so on as many as possible.
  * After that it folds the result from the right to the left.
  * If the last applied parser is [separator] then it is ignored.
+ *
+ * It is important that the initial value is `items.last()`,
+ * on i-th step the result is `transform(items[`i`], separators[`i`], last_res)`.
  */
 public fun <T : R, S, R> rightAssociative(
     item: OrdinaryParser<T>,
@@ -108,7 +116,7 @@ public fun <T : R, S, R> rightAssociative(
 ): OrdinaryParser<R> = SeparatedCombinator(item, separator.toOrdinary(), false) { items, separators ->
     var result: R = items.last()
     for (i in items.size - 2 downTo 0) {
-        result = transform(items[i], separators[i - 1], result)
+        result = transform(items[i], separators[i], result)
     }
     result
 }
