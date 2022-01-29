@@ -1,9 +1,8 @@
 package com.github.kkarnauk.parsek.parser.combinators
 
+import com.github.kkarnauk.parsek.info.Location
+import com.github.kkarnauk.parsek.parser.*
 import com.github.kkarnauk.parsek.parser.AbstractParserTest
-import com.github.kkarnauk.parsek.parser.OrdinaryParser
-import com.github.kkarnauk.parsek.parser.ParsedValue
-import com.github.kkarnauk.parsek.parser.SkipParser
 import com.github.kkarnauk.parsek.token.types.CharPredicateTokenType
 import kotlin.test.Test
 
@@ -42,5 +41,33 @@ internal class ReferenceTest : AbstractParserTest<OrdinaryParser<*>>() {
             describeToken(letter, 3, 1)
         )
         expected = ParsedValue("home", 4)
+    }
+
+    @Test
+    fun testFailureInOrdinaryReference() = doTest<Nothing> {
+        text = "a"
+        parser = num
+        tokenProducer = produceTokens(describeToken(letter, 0, 1))
+        expected = NoSuchAlternativeFailure(
+            Location(0, 1, 1),
+            listOf(
+                MismatchTokenTypeFailure(Location(0, 1, 1), digit, letter),
+                MismatchTokenTypeFailure(Location(0, 1, 1), digit, letter)
+            )
+        )
+    }
+
+    @Test
+    fun testFailureInSkipReference() = doTest<Nothing> {
+        text = "1"
+        parser = +word
+        tokenProducer = produceTokens(describeToken(digit, 0, 1))
+        expected = NoSuchAlternativeFailure(
+            Location(0, 1, 1),
+            listOf(
+                MismatchTokenTypeFailure(Location(0, 1, 1), letter, digit),
+                MismatchTokenTypeFailure(Location(0, 1, 1), letter, digit)
+            )
+        )
     }
 }
