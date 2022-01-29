@@ -3,7 +3,8 @@ package com.github.kkarnauk.parsek
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.Token
 import com.github.kkarnauk.parsek.token.types.TokenType
-import kotlin.test.fail
+import kotlin.test.assertFails
+import kotlin.test.assertTrue
 
 internal abstract class ParsekTest {
     protected val tokenTypeName: () -> String = run {
@@ -43,17 +44,6 @@ internal abstract class ParsekTest {
     }
 
     protected inline fun <reified T : Throwable> assertThrows(block: () -> Unit) {
-        var isThrown = true
-        try {
-            block()
-            isThrown = false
-        } catch (t: Throwable) {
-            if (t::class != T::class) {
-                fail("Expected ${T::class} to be thrown, but ${t::class} was thrown.")
-            }
-        }
-        if (!isThrown) {
-            fail("Expected ${T::class} to be thrown, but nothing was thrown.")
-        }
+       assertTrue(assertFails(block) is T)
     }
 }
