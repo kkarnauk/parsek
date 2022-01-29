@@ -37,8 +37,8 @@ public abstract class AbstractTokenType(
         val token = tokenProducer.getOrNull(fromIndex)
         return when {
             token == null -> {
-                val location = tokenProducer.lastToken?.location ?: EmptyLocation
-                unexpectedEofFailure(this, location)
+                val location = tokenProducer.lastToken?.location ?: EmptyLocation // TODO add last token to location
+                unexpectedEofFailure(location, this)
             }
             token.type === this -> ParsedValue(token, fromIndex + 1)
             else -> MismatchTokenTypeFailure(token.location, this, token.type)

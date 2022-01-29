@@ -70,7 +70,7 @@ public data class MismatchTokenTypeFailure(
 /**
  * Represents a failure at [location] when a parser expected token [expected] but got EOF.
  */
-public fun unexpectedEofFailure(expected: TokenType, location: Location): LocatedParseError {
+public fun unexpectedEofFailure(location: Location, expected: TokenType): LocatedParseError {
     return MismatchTokenTypeFailure(location, expected, EofTokenType)
 }
 
