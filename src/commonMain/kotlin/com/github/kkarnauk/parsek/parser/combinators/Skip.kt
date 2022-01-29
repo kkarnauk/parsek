@@ -8,13 +8,13 @@ import com.github.kkarnauk.parsek.parser.SkipParser
  * Transforms a parser that uses its result into a parser that ignores it.
  * The key usage is [seq].
  */
-public fun <T> skip(parser: OrdinaryParser<T>): SkipParser<T> = SkipParser(parser)
+public fun <T> OrdinaryParser<T>.skip(): SkipParser<T> = SkipParser(this)
 
 /**
  * Transforms a parser that uses its result into a parser that ignores it.
  * The key usage is [seq].
  */
-public operator fun <T> OrdinaryParser<T>.unaryMinus(): SkipParser<T> = skip(this)
+public operator fun <T> OrdinaryParser<T>.unaryMinus(): SkipParser<T> = skip()
 
 /**
  * Transforms a parser that ignores its result into a parser that uses it.

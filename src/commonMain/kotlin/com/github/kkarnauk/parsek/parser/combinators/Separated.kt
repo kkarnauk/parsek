@@ -58,9 +58,7 @@ public fun <T> separated(
     item: SkipParser<T>,
     separator: Parser<*>,
     allowEmpty: Boolean = false
-): SkipParser<List<T>> = skip(
-    SeparatedCombinator(item.inner, separator.toOrdinary(), allowEmpty) { x, _ -> x }
-)
+): SkipParser<List<T>> = SeparatedCombinator(item.inner, separator.toOrdinary(), allowEmpty) { x, _ -> x }.skip()
 
 /**
  * @return [OrdinaryParser] that applies [item], [separator], [item], [separator] and so on as many as possible.

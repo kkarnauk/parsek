@@ -49,4 +49,4 @@ public infix fun <T, S> SkipParser<T>.seq(other: OrdinaryParser<S>): OrdinaryPar
  * If at least one fails, then the whole result is the first failure.
  */
 public infix fun <T, S> SkipParser<T>.seq(other: SkipParser<S>): SkipParser<Pair<T, S>> =
-    skip(SequenceCombinator(inner, other.inner, ::Pair))
+    SequenceCombinator(inner, other.inner, ::Pair).skip()
