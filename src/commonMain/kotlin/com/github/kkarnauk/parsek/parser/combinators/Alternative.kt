@@ -35,3 +35,13 @@ public infix fun <T> OrdinaryParser<T>.alt(other: OrdinaryParser<T>): OrdinaryPa
     other is AlternativeCombinator -> AlternativeCombinator(other.parsers.toMutableList().also { it.add(0, this) })
     else -> AlternativeCombinator(listOf(this, other))
 }
+
+/**
+ * @return [SkipParser] that at the start tries to parse with the first parser.
+ * If the first one fails, then it uses the second one.
+ * If all the parsers fail, then [NoSuchAlternativeFailure] will be returned with the corresponding failures
+ * from the first and the second parsers.
+ *
+ * You can combine more than two parsers with [alt]. Then all parsers will be tried one by one in a similar way.
+ */
+public infix fun <T> SkipParser<T>.alt(other: SkipParser<T>): SkipParser<T> = (inner alt other.inner).skip()
