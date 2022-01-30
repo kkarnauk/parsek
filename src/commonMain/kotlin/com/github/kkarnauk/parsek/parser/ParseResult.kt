@@ -1,6 +1,7 @@
 package com.github.kkarnauk.parsek.parser
 
 import com.github.kkarnauk.parsek.info.Location
+import com.github.kkarnauk.parsek.token.Token
 import com.github.kkarnauk.parsek.token.types.EofTokenType
 import com.github.kkarnauk.parsek.token.types.TokenType
 
@@ -80,5 +81,17 @@ public data class NoSuchAlternativeFailure(
 ) : LocatedParseError {
     // TODO nicer message
     override val message: String
-        get() = "No such appropriate alternative:\n ${alternativeFailures.joinToString("\n") { it.message }}"
+        get() = "No such appropriate alternative at $location:\n" +
+                alternativeFailures.joinToString("\n") { it.message }
+}
+
+public data class UnparsedRemainderFailure(
+    private val nextToken: Token
+) : LocatedParseError {
+    override val location: Location
+        get() = nextToken.location
+
+    override val message: String
+        get() = "The parser matched only the part of the input. " +
+                "Stopped at $location on the token named ${nextToken.type.name}."
 }
