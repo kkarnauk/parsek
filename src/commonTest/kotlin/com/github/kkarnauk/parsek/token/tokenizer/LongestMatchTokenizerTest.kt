@@ -8,8 +8,8 @@ import kotlin.test.Test
 
 @Suppress("UNUSED_VARIABLE")
 internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTokenizer>() {
-    override val tokenizerSupplier: TokenizerSupplier<LongestMatchTokenizer>
-        get() = longestMatchTokenizerSupplier
+    override val tokenizerProvider: TokenizerProvider<LongestMatchTokenizer>
+        get() = longestMatchTokenizerProvider
 
     @Test
     fun testTokenizingBits() = doTest {

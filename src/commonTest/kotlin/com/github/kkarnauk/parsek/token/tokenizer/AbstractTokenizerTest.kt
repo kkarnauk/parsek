@@ -7,7 +7,7 @@ import kotlin.reflect.KProperty
 import kotlin.test.assertEquals
 
 internal abstract class AbstractTokenizerTest<T : Tokenizer> : ParsekTest() {
-    protected abstract val tokenizerSupplier: TokenizerSupplier<T>
+    protected abstract val tokenizerProvider: TokenizerProvider<T>
 
     protected inner class InsideTest : AbstractInsideTest() {
         private val tokenTypes = mutableListOf<TokenType>()
@@ -16,7 +16,7 @@ internal abstract class AbstractTokenizerTest<T : Tokenizer> : ParsekTest() {
         var expectedTokenDescriptions by Delegates.notNull<List<TokenDescription>>()
 
         fun test() {
-            val tokenizer = tokenizerSupplier.supply(tokenTypes)
+            val tokenizer = tokenizerProvider.provide(tokenTypes)
             val tokens = tokenizer.tokenize(text).toList()
             val expectedTokens = expectedTokenDescriptions.map { it.toToken() }
             assertEquals(expectedTokens, tokens)
