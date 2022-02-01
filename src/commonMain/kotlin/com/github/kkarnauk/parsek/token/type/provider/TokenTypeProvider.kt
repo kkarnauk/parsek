@@ -2,6 +2,10 @@ package com.github.kkarnauk.parsek.token.type.provider
 
 import com.github.kkarnauk.parsek.token.type.TokenType
 
+/**
+ * Provides a token type [T] by a name.
+ * Required to take names from properties when constructing a grammar and provide with token types.
+ */
 public abstract class TokenTypeProvider<T : TokenType> {
     protected var isIgnored: Boolean = false
         private set
