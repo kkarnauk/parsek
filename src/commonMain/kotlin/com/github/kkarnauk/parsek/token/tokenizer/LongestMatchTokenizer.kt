@@ -3,7 +3,7 @@ package com.github.kkarnauk.parsek.token.tokenizer
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.Token
 import com.github.kkarnauk.parsek.token.TokenProducer
-import com.github.kkarnauk.parsek.token.types.TokenType
+import com.github.kkarnauk.parsek.token.type.TokenType
 
 /**
  * * On each step looks for the token with the longest matched part

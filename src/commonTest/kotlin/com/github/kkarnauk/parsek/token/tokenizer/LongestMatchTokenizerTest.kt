@@ -1,9 +1,9 @@
 package com.github.kkarnauk.parsek.token.tokenizer
 
-import com.github.kkarnauk.parsek.token.types.CharPredicateTokenType
-import com.github.kkarnauk.parsek.token.types.CharTokenType
-import com.github.kkarnauk.parsek.token.types.LiteralTokenType
-import com.github.kkarnauk.parsek.token.types.RegexTokenType
+import com.github.kkarnauk.parsek.token.type.CharPredicateTokenType
+import com.github.kkarnauk.parsek.token.type.CharTokenType
+import com.github.kkarnauk.parsek.token.type.LiteralTokenType
+import com.github.kkarnauk.parsek.token.type.RegexTokenType
 import kotlin.test.Test
 
 @Suppress("UNUSED_VARIABLE")

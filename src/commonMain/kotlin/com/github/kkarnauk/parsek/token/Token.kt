@@ -1,7 +1,7 @@
 package com.github.kkarnauk.parsek.token
 
 import com.github.kkarnauk.parsek.info.Location
-import com.github.kkarnauk.parsek.token.types.TokenType
+import com.github.kkarnauk.parsek.token.type.TokenType
 
 /**
  * Represents a result of [TokenProducer].

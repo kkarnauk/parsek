@@ -1,7 +1,7 @@
 package com.github.kkarnauk.parsek.token.tokenizer
 
 import com.github.kkarnauk.parsek.ParsekTest
-import com.github.kkarnauk.parsek.token.types.TokenType
+import com.github.kkarnauk.parsek.token.type.TokenType
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 import kotlin.test.assertEquals

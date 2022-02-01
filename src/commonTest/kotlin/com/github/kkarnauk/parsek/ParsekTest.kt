@@ -2,7 +2,7 @@ package com.github.kkarnauk.parsek
 
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.Token
-import com.github.kkarnauk.parsek.token.types.TokenType
+import com.github.kkarnauk.parsek.token.type.TokenType
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
 

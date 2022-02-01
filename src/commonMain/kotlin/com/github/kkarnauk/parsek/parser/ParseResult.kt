@@ -2,8 +2,8 @@ package com.github.kkarnauk.parsek.parser
 
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.Token
-import com.github.kkarnauk.parsek.token.types.EofTokenType
-import com.github.kkarnauk.parsek.token.types.TokenType
+import com.github.kkarnauk.parsek.token.type.EofTokenType
+import com.github.kkarnauk.parsek.token.type.TokenType
 
 /**
  * Result of parsing with type [T].

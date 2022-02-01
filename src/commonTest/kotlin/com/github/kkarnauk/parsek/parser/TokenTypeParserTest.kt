@@ -2,10 +2,10 @@ package com.github.kkarnauk.parsek.parser
 
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.Token
-import com.github.kkarnauk.parsek.token.types.CharTokenType
-import com.github.kkarnauk.parsek.token.types.LiteralTokenType
-import com.github.kkarnauk.parsek.token.types.RegexTokenType
-import com.github.kkarnauk.parsek.token.types.TokenType
+import com.github.kkarnauk.parsek.token.type.CharTokenType
+import com.github.kkarnauk.parsek.token.type.LiteralTokenType
+import com.github.kkarnauk.parsek.token.type.RegexTokenType
+import com.github.kkarnauk.parsek.token.type.TokenType
 import kotlin.test.Test
 
 internal class TokenTypeParserTest : AbstractParserTest<TokenType>() {
