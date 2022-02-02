@@ -1,5 +1,6 @@
 package com.github.kkarnauk.parsek.token.tokenizer
 
+import com.github.kkarnauk.parsek.exception.TokenizeException
 import com.github.kkarnauk.parsek.token.type.CharPredicateTokenType
 import com.github.kkarnauk.parsek.token.type.CharTokenType
 import com.github.kkarnauk.parsek.token.type.LiteralTokenType
@@ -83,7 +84,7 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
     }
 
     @Test
-    fun testCannotTokenizeToEnd() = assertThrows<IllegalArgumentException> {
+    fun testCannotTokenizeToEnd() = assertThrows<TokenizeException> {
         doTest {
             text = "abc"
 

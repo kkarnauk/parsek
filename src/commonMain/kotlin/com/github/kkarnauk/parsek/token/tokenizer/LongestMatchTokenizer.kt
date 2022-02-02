@@ -1,5 +1,6 @@
 package com.github.kkarnauk.parsek.token.tokenizer
 
+import com.github.kkarnauk.parsek.exception.TokenizeException
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.Token
 import com.github.kkarnauk.parsek.token.TokenProducer
@@ -31,8 +32,10 @@ public class LongestMatchTokenizer(private val tokenTypes: List<TokenType>) : To
                 if (matchedLength > 0) matchedLength to type else null
             }.maxByOrNull { it.first }
 
-            requireNotNull(bestMatch) {
-                "Cannot tokenize the whole input. Unknown token: row=${state.row}, column=${state.column}."
+            if (bestMatch == null) {
+                throw TokenizeException(
+                    "Cannot tokenize the whole input. Unknown token: row=${state.row}, column=${state.column}."
+                )
             }
 
             val (length, type) = bestMatch
