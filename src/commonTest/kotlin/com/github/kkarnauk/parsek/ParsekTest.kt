@@ -44,6 +44,7 @@ internal abstract class ParsekTest {
     }
 
     protected inline fun <reified T : Throwable> assertThrows(block: () -> Unit) {
-       assertTrue(assertFails(block) is T)
+        val thrown = assertFails(block)
+        assertTrue(thrown is T, "Expected ${T::class}, but ${thrown::class} was thrown")
     }
 }
