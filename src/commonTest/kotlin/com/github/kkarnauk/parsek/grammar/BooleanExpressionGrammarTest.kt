@@ -27,18 +27,18 @@ internal object BooleanExpressionGrammar : Grammar<BooleanExpression>() {
     @Suppress("unused")
     private val ws by chars { it.isWhitespace() }.ignored()
 
-    private val term: OrdinaryParser<BooleanExpression> by (id map { Variable(it.text) }) alt
+    private val term: OrdinaryParser<BooleanExpression> = (id map { Variable(it.text) }) alt
             (-not seq ref(this::term) map { Not(it) }) alt
             (-lpar seq ref(this::parser) seq -rpar)
 
-    private val andChain by leftAssociative(term, and) { res, cur -> And(res, cur) }
-    private val orChain by leftAssociative(andChain, or) { res, cur -> Or(res, cur) }
+    private val andChain: OrdinaryParser<BooleanExpression> = leftAssociative(term, and) { res, cur -> And(res, cur) }
+    private val orChain = leftAssociative(andChain, or) { res, cur -> Or(res, cur) }
 
     override val parser: OrdinaryParser<BooleanExpression>
         get() = orChain
 }
 
-internal class BooleanExpressionGrammarTest : AbstractGrammarTest<BooleanExpression,BooleanExpressionGrammar>() {
+internal class BooleanExpressionGrammarTest : AbstractGrammarTest<BooleanExpression, BooleanExpressionGrammar>() {
     override val grammar: BooleanExpressionGrammar
         get() = BooleanExpressionGrammar
 
