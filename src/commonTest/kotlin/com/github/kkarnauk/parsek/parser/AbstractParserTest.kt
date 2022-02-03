@@ -22,11 +22,18 @@ internal abstract class AbstractParserTest<P : Parser<*>> : ParsekTest() {
         var expected by Delegates.notNull<ParseResult<R>>()
 
         fun test() {
-            assertEquals(expected, parser.parse(tokenProducer.indexed(), fromIndex))
+            val actual = parser.parse(tokenProducer.indexed(), fromIndex)
+            assertEquals(expected, actual)
         }
     }
 
     protected fun <T> doTest(block: InsideTest<T>.() -> Unit) {
         InsideTest<T>().apply(block).apply { test() }
+    }
+
+    protected inline fun <reified T : Throwable> doTestThrows(block: InsideTest<Nothing>.() -> Unit) {
+        assertThrows<T> {
+            InsideTest<Nothing>().apply(block).test()
+        }
     }
 }
