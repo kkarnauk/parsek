@@ -5,7 +5,7 @@ package com.github.kkarnauk.parsek.token.type
  * If [ignoreCase] is `true` then case is ignored while matching.
  * Match is considered as successful iff the whole [text] is matched.
  */
-public class LiteralTokenType(
+public class TextTokenType(
     private val text: CharSequence,
     private val ignoreCase: Boolean,
     name: String,

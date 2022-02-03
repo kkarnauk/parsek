@@ -3,7 +3,7 @@ package com.github.kkarnauk.parsek.token.tokenizer
 import com.github.kkarnauk.parsek.exception.TokenizeException
 import com.github.kkarnauk.parsek.token.type.CharPredicateTokenType
 import com.github.kkarnauk.parsek.token.type.CharTokenType
-import com.github.kkarnauk.parsek.token.type.LiteralTokenType
+import com.github.kkarnauk.parsek.token.type.TextTokenType
 import com.github.kkarnauk.parsek.token.type.RegexTokenType
 import kotlin.test.Test
 
@@ -16,8 +16,8 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
     fun testTokenizingBits() = doTest {
         text = "1 0 00\n1\n1 0\t 1\n\n  0  1"
 
-        val zero by LiteralTokenType("0", false, tokenTypeName(), false)
-        val one by LiteralTokenType("1", false, tokenTypeName(), false)
+        val zero by TextTokenType("0", false, tokenTypeName(), false)
+        val one by TextTokenType("1", false, tokenTypeName(), false)
         val ws by RegexTokenType("\\s+", setOf(), tokenTypeName(), true)
         expectedTokenDescriptions = listOf(
             describeToken(one, 0, 1),
@@ -37,10 +37,10 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
     fun testTokenizingDataDescription() = doTest {
         text = "person(name='personImportant' age=21 hobbies='namesCode')  "
 
-        val dataName by LiteralTokenType("person", false, tokenTypeName(), false)
-        val nameField by LiteralTokenType("name", false, tokenTypeName(), false)
-        val ageField by LiteralTokenType("age", false, tokenTypeName(), false)
-        val hobbiesField by LiteralTokenType("hobbies", false, tokenTypeName(), false)
+        val dataName by TextTokenType("person", false, tokenTypeName(), false)
+        val nameField by TextTokenType("name", false, tokenTypeName(), false)
+        val ageField by TextTokenType("age", false, tokenTypeName(), false)
+        val hobbiesField by TextTokenType("hobbies", false, tokenTypeName(), false)
         val str by RegexTokenType("[a-zA-Z]+", setOf(), tokenTypeName(), false)
         val num by RegexTokenType("\\d+", setOf(), tokenTypeName(), false)
         val quote by CharTokenType('\'', false, tokenTypeName(), false)
@@ -72,9 +72,9 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
     fun testPrefixes() = doTest {
         text = "a \n\naa \naaa"
 
-        val a by LiteralTokenType("a", false, tokenTypeName(), false)
-        val aa by LiteralTokenType("aa", false, tokenTypeName(), false)
-        val aaa by LiteralTokenType("aaa", false, tokenTypeName(), false)
+        val a by TextTokenType("a", false, tokenTypeName(), false)
+        val aa by TextTokenType("aa", false, tokenTypeName(), false)
+        val aaa by TextTokenType("aaa", false, tokenTypeName(), false)
         val ws by CharPredicateTokenType(tokenTypeName(), true) { it.isWhitespace() }
         expectedTokenDescriptions = listOf(
             describeToken(a, 0, 1),
@@ -88,8 +88,8 @@ internal class LongestMatchTokenizerTest : AbstractTokenizerTest<LongestMatchTok
         doTest {
             text = "abc"
 
-            val a by LiteralTokenType("a", false, tokenTypeName(), false)
-            val b by LiteralTokenType("b", false, tokenTypeName(), false)
+            val a by TextTokenType("a", false, tokenTypeName(), false)
+            val b by TextTokenType("b", false, tokenTypeName(), false)
             expectedTokenDescriptions = listOf()
         }
     }

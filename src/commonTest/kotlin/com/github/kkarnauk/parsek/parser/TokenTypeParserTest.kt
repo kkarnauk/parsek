@@ -3,16 +3,16 @@ package com.github.kkarnauk.parsek.parser
 import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.token.Token
 import com.github.kkarnauk.parsek.token.type.CharTokenType
-import com.github.kkarnauk.parsek.token.type.LiteralTokenType
+import com.github.kkarnauk.parsek.token.type.TextTokenType
 import com.github.kkarnauk.parsek.token.type.RegexTokenType
 import com.github.kkarnauk.parsek.token.type.TokenType
 import kotlin.test.Test
 
 internal class TokenTypeParserTest : AbstractParserTest<TokenType>() {
     @Test
-    fun testLiteralTokenType() = doTest<Token> {
+    fun testTextTokenType() = doTest<Token> {
         text = "Kirill"
-        parser = LiteralTokenType("Kirill", false, tokenTypeName(), false)
+        parser = TextTokenType("Kirill", false, tokenTypeName(), false)
         tokenProducer = produceTokens(describeToken(parser, 0, 6))
         expected = ParsedValue(describeToken(parser, 0, 6).toToken(), 1)
     }

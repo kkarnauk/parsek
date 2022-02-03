@@ -2,24 +2,24 @@ package com.github.kkarnauk.parsek.token.type
 
 import kotlin.test.Test
 
-internal class LiteralTokenTypeTest : AbstractTokenTypeTest<LiteralTokenType>() {
+internal class TextTokenTypeTest : AbstractTokenTypeTest<TextTokenType>() {
     @Test
     fun testFullMatch() = doTest {
-        token = LiteralTokenType("mine", false, tokenTypeName(), false)
+        token = TextTokenType("mine", false, tokenTypeName(), false)
         text = "mine"
         expectedLength = 4
     }
 
     @Test
     fun testPrefixMatch() = doTest {
-        token = LiteralTokenType("hello", false, tokenTypeName(), false)
+        token = TextTokenType("hello", false, tokenTypeName(), false)
         text = "hello, my dear friend!"
         expectedLength = 5
     }
 
     @Test
     fun testSuffixMatch() = doTest {
-        token = LiteralTokenType("Friend", false, tokenTypeName(), false)
+        token = TextTokenType("Friend", false, tokenTypeName(), false)
         text = "hello, my dear Friend"
         fromIndex = 15
         expectedLength = 6
@@ -27,7 +27,7 @@ internal class LiteralTokenTypeTest : AbstractTokenTypeTest<LiteralTokenType>() 
 
     @Test
     fun testMiddleMatch() = doTest {
-        token = LiteralTokenType("dear", false, tokenTypeName(), false)
+        token = TextTokenType("dear", false, tokenTypeName(), false)
         text = "hello, my dear friend!"
         fromIndex = 10
         expectedLength = 4
@@ -35,42 +35,42 @@ internal class LiteralTokenTypeTest : AbstractTokenTypeTest<LiteralTokenType>() 
 
     @Test
     fun testCaseSensitive() = doTest {
-        token = LiteralTokenType("how", false, tokenTypeName(), false)
+        token = TextTokenType("how", false, tokenTypeName(), false)
         text = "How are you?"
         expectedLength = 0
     }
 
     @Test
     fun testIgnoreCase() = doTest {
-        token = LiteralTokenType("how", true, tokenTypeName(), false)
+        token = TextTokenType("how", true, tokenTypeName(), false)
         text = "How are you?"
         expectedLength = 3
     }
 
     @Test
     fun testIgnoredNoImpact() = doTest {
-        token = LiteralTokenType("hey", false, tokenTypeName(), true)
+        token = TextTokenType("hey", false, tokenTypeName(), true)
         text = "hey!"
         expectedLength = 3
     }
 
     @Test
     fun testRussian() = doTest {
-        token = LiteralTokenType("Привет", false, tokenTypeName(), false)
+        token = TextTokenType("Привет", false, tokenTypeName(), false)
         text = "Привет, мир!"
         expectedLength = 6
     }
 
     @Test
     fun testTextFullyMatchedButTokenNot() = doTest {
-        token = LiteralTokenType("My lovely friend", false, tokenTypeName(), false)
+        token = TextTokenType("My lovely friend", false, tokenTypeName(), false)
         text = "My love"
         expectedLength = 0
     }
 
     @Test
     fun testIncorrectIndex() = doTest {
-        token = LiteralTokenType("Hi", false, tokenTypeName(), false)
+        token = TextTokenType("Hi", false, tokenTypeName(), false)
         text = "Hi, my friend!"
         fromIndex = 2
         expectedLength = 0
@@ -78,7 +78,7 @@ internal class LiteralTokenTypeTest : AbstractTokenTypeTest<LiteralTokenType>() 
 
     @Test
     fun testIncorrectToken() = doTest {
-        token = LiteralTokenType("one", false, tokenTypeName(), false)
+        token = TextTokenType("one", false, tokenTypeName(), false)
         text = "two"
         expectedLength = 0
     }

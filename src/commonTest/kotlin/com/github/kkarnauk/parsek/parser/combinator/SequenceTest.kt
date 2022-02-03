@@ -7,7 +7,7 @@ import com.github.kkarnauk.parsek.parser.OrdinaryParser
 import com.github.kkarnauk.parsek.parser.ParsedValue
 import com.github.kkarnauk.parsek.token.Token
 import com.github.kkarnauk.parsek.token.type.CharTokenType
-import com.github.kkarnauk.parsek.token.type.LiteralTokenType
+import com.github.kkarnauk.parsek.token.type.TextTokenType
 import kotlin.test.Test
 
 internal class SequenceTest : AbstractParserTest<OrdinaryParser<*>>() {
@@ -31,8 +31,8 @@ internal class SequenceTest : AbstractParserTest<OrdinaryParser<*>>() {
     @Test
     fun testSkipOrdinary() = doTest<Token> {
         text = "first second first"
-        val first = LiteralTokenType("first", false, tokenTypeName(), false)
-        val second = LiteralTokenType("second", false, tokenTypeName(), false)
+        val first = TextTokenType("first", false, tokenTypeName(), false)
+        val second = TextTokenType("second", false, tokenTypeName(), false)
         parser = -first seq second
         tokenProducer = produceTokens(
             describeToken(first, 0, 5),
@@ -45,8 +45,8 @@ internal class SequenceTest : AbstractParserTest<OrdinaryParser<*>>() {
     @Test
     fun testOrdinarySkip() = doTest<Token> {
         text = "first second first"
-        val first = LiteralTokenType("first", false, tokenTypeName(), false)
-        val second = LiteralTokenType("second", false, tokenTypeName(), false)
+        val first = TextTokenType("first", false, tokenTypeName(), false)
+        val second = TextTokenType("second", false, tokenTypeName(), false)
         parser = first seq -second
         tokenProducer = produceTokens(
             describeToken(first, 0, 5),
@@ -59,8 +59,8 @@ internal class SequenceTest : AbstractParserTest<OrdinaryParser<*>>() {
     @Test
     fun testSkipSkip() = doTest<Token> {
         text = "first second first"
-        val first = LiteralTokenType("first", false, tokenTypeName(), false)
-        val second = LiteralTokenType("second", false, tokenTypeName(), false)
+        val first = TextTokenType("first", false, tokenTypeName(), false)
+        val second = TextTokenType("second", false, tokenTypeName(), false)
         parser = -first seq -second seq first
         tokenProducer = produceTokens(
             describeToken(first, 0, 5),
@@ -95,9 +95,9 @@ internal class SequenceTest : AbstractParserTest<OrdinaryParser<*>>() {
     @Test
     fun testMismatchTokenTypeFailure() = doTest<Nothing> {
         text = "one two\n three"
-        val one = LiteralTokenType("one", false, tokenTypeName(), false)
-        val two = LiteralTokenType("two", false, tokenTypeName(), false)
-        val three = LiteralTokenType("three", false, tokenTypeName(), false)
+        val one = TextTokenType("one", false, tokenTypeName(), false)
+        val two = TextTokenType("two", false, tokenTypeName(), false)
+        val three = TextTokenType("three", false, tokenTypeName(), false)
         parser = one seq two seq one
         tokenProducer = produceTokens(
             describeToken(one, 0, 3),

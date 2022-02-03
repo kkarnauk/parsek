@@ -4,7 +4,7 @@ import com.github.kkarnauk.parsek.info.Location
 import com.github.kkarnauk.parsek.parser.*
 import com.github.kkarnauk.parsek.token.Token
 import com.github.kkarnauk.parsek.token.type.CharTokenType
-import com.github.kkarnauk.parsek.token.type.LiteralTokenType
+import com.github.kkarnauk.parsek.token.type.TextTokenType
 import com.github.kkarnauk.parsek.token.type.RegexTokenType
 import kotlin.test.Test
 
@@ -27,10 +27,10 @@ internal class AlternativeTest : AbstractParserTest<OrdinaryParser<*>>() {
     @Test
     fun testManyAlternatives() = doTest<Token> {
         text = "hello my old friend"
-        val hello = LiteralTokenType("hello", false, tokenTypeName(), false)
-        val my = LiteralTokenType("my", false, tokenTypeName(), false)
-        val old = LiteralTokenType("old", false, tokenTypeName(), false)
-        val friend = LiteralTokenType("friend", false, tokenTypeName(), false)
+        val hello = TextTokenType("hello", false, tokenTypeName(), false)
+        val my = TextTokenType("my", false, tokenTypeName(), false)
+        val old = TextTokenType("old", false, tokenTypeName(), false)
+        val friend = TextTokenType("friend", false, tokenTypeName(), false)
         parser = hello alt my alt old alt friend
         fromIndex = 3
         tokenProducer = produceTokens(
