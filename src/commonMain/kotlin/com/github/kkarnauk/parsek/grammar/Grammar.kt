@@ -68,7 +68,15 @@ public abstract class Grammar<out R> {
     protected operator fun <T : TokenType> TokenTypeProvider<T>.provideDelegate(
         thisRef: Grammar<*>,
         kProperty: KProperty<*>
-    ): T = provide(kProperty.name).apply { tokenTypes += this }
+    ): T = provide(kProperty.name).provideDelegate(thisRef, kProperty)
+
+    /**
+     * Returns [this] and puts it into [tokenTypes] (which is very important).
+     */
+    protected operator fun <T : TokenType> T.provideDelegate(
+        thisRef: Grammar<*>,
+        kProperty: KProperty<*>
+    ): T = apply { tokenTypes += this }
 
     /**
      * Takes all the token types from [G] and puts them all into the current [tokenTypes] (which is very important).
