@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform") version "1.6.10"
 }
 
-group = "com.github.kkarnauk"
+group = "io.github.kkarnauk"
 version = "1.0"
 
 repositories {
