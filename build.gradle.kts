@@ -1,9 +1,13 @@
 plugins {
     kotlin("multiplatform") version "1.6.10"
+
+    id("signing")
+    id("maven-publish")
+    id("org.jetbrains.dokka") version "1.6.10"
 }
 
 group = "io.github.kkarnauk"
-version = "1.0"
+version = "0.1"
 
 repositories {
     mavenCentral()
@@ -11,6 +15,14 @@ repositories {
 
 kotlin {
     explicitApi()
+
+    targets.all {
+        compilations.all {
+            kotlinOptions {
+                allWarningsAsErrors = true
+            }
+        }
+    }
 
     jvm {
         compilations.all {
@@ -51,5 +63,63 @@ kotlin {
         val jsTest by getting
         val nativeMain by getting
         val nativeTest by getting
+    }
+}
+
+// Publishing
+
+val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
+
+val javadocJar by tasks.registering(Jar::class) {
+    dependsOn(dokkaHtml)
+    archiveClassifier.set("javadoc")
+    from(dokkaHtml.outputDirectory)
+}
+
+publishing {
+    val myUsername = findProperty("ossrhUsername")?.toString()
+    val myPassword = findProperty("ossrhPassword")?.toString()
+    val projectGitUrl = findProperty("parsekGitUrl")?.toString()
+
+    repositories {
+        maven {
+            name = "sonatypeStaging"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
+            credentials {
+                username = myUsername
+                password = myPassword
+            }
+        }
+    }
+
+    publications.withType<MavenPublication> {
+        artifact(javadocJar.get())
+
+        pom {
+            name.set("parsek")
+            description.set("Convenient parser combinators library for Kotlin Multiplatform.")
+            url.set("https://github.com/kkarnauk/parsek")
+
+            licenses {
+                license {
+                    name.set("Apache-2.0 License")
+                    url.set("https://opensource.org/licenses/Apache-2.0")
+                }
+            }
+            developers {
+                developer {
+                    id.set("kkarnauk")
+                    name.set("Kirill Karnaukhov")
+                    email.set("bitikit@gmail.com")
+                }
+            }
+            scm {
+                connection.set("scm:git:git://$projectGitUrl")
+                developerConnection.set("scm:git:ssh://$projectGitUrl.git")
+                url.set("https://$projectGitUrl")
+            }
+        }
+
+        signing.sign(this)
     }
 }
