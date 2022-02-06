@@ -13,9 +13,14 @@ inside Kotlin JS and Kotlin Native.
   * [Parsing an integer](#parsing-an-integer)
   * [Parsing an arithmetic expression](#parsing-an-arithmetic-expression)
 
-## Installation
+## Using with Gradle
 
-**TODO (it's not published yet)**
+To use the library, it's enough to include the dependency:
+```kotlin
+dependencies {
+    implementation("io.github.kkarnauk:parsek:0.1")
+}
+```
 
 ## Examples
 
