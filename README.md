@@ -8,18 +8,33 @@ inside Kotlin JS and Kotlin Native.
 
 
 ## Table of contents
-* [Installation](#installation)
+* [Using](#using)
+  * [Gradle](#gradle)
+  * [Maven](#maven)
 * [Examples](#examples)
   * [Parsing an integer](#parsing-an-integer)
   * [Parsing an arithmetic expression](#parsing-an-arithmetic-expression)
 
-## Using with Gradle
+## Using
 
-To use the library, it's enough to include the dependency:
+To use the library, it's enough to include the dependency from **Maven Central**.
+
+### Gradle
+
 ```kotlin
 dependencies {
     implementation("io.github.kkarnauk:parsek:0.1")
 }
+```
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>io.github.kkarnauk</groupId>
+  <artifactId>parsek</artifactId>
+  <version>0.1</version>
+</dependency>
 ```
 
 ## Examples
