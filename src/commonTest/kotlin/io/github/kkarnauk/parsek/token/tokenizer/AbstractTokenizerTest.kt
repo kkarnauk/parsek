@@ -1,6 +1,7 @@
 package io.github.kkarnauk.parsek.token.tokenizer
 
 import io.github.kkarnauk.parsek.ParsekTest
+import io.github.kkarnauk.parsek.token.tokenizer.provider.TokenizerProvider
 import io.github.kkarnauk.parsek.token.type.TokenType
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty

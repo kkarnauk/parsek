@@ -1,5 +1,6 @@
-package io.github.kkarnauk.parsek.token.tokenizer
+package io.github.kkarnauk.parsek.token.tokenizer.provider
 
+import io.github.kkarnauk.parsek.token.tokenizer.Tokenizer
 import io.github.kkarnauk.parsek.token.type.TokenType
 
 /**
@@ -9,15 +10,6 @@ import io.github.kkarnauk.parsek.token.type.TokenType
  */
 public interface TokenizerProvider<out T : Tokenizer> {
     public fun provide(tokenTypes: List<TokenType>): T
-}
-
-/**
- * Provides the longest match tokenizer.
- */
-public val longestMatchTokenizerProvider: TokenizerProvider<LongestMatchTokenizer> = run {
-    object : TokenizerProvider<LongestMatchTokenizer> {
-        override fun provide(tokenTypes: List<TokenType>): LongestMatchTokenizer = LongestMatchTokenizer(tokenTypes)
-    }
 }
 
 /**

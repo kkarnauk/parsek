@@ -4,8 +4,8 @@ import io.github.kkarnauk.parsek.exception.toException
 import io.github.kkarnauk.parsek.parser.*
 import io.github.kkarnauk.parsek.token.indexed
 import io.github.kkarnauk.parsek.token.tokenizer.Tokenizer
-import io.github.kkarnauk.parsek.token.tokenizer.TokenizerProvider
-import io.github.kkarnauk.parsek.token.tokenizer.longestMatchTokenizerProvider
+import io.github.kkarnauk.parsek.token.tokenizer.provider.TokenizerProvider
+import io.github.kkarnauk.parsek.token.tokenizer.provider.longestMatchTokenizerProvider
 import io.github.kkarnauk.parsek.token.type.TokenType
 import io.github.kkarnauk.parsek.token.type.provider.TokenTypeProvider
 import kotlin.reflect.KProperty
