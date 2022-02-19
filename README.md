@@ -197,13 +197,33 @@ So the providers help you to create tokens in a more convenient way.
 **Note:** you must use **delegation** here in order to pass created tokens into a **tokenizer**.
 
 Now, let's map the described token types into their providers:
-* `Char ~~> by char(char: Char, ignoreCase: Boolean = false)`
-* `Text ~~> by text(text: String, ignoreCase: Boolean = false)`
-* `Regex ~~> by regex(regex: String, options: Set<RegexOption> = emptySet())`
-* `Char predicate ~~> by chars(predicate: (Char) -> Boolean)`
-* `General token type ~~> by tokenType(predicate: (String, Int) -> Int)`
-* `General token type ~~> by tokenType(predicate: (String) -> Int`
-* `General token type ~~> by tokenType(type: TokenType)`
+* Char:
+ ```kotlin
+val letterA by char('a', ignoreCase = true)
+val plus by char('+') // case is not ignored by default
+ ```
+* Text:
+```kotlin
+val myName by text("kirill", ignoreCase = true)
+val classKeyword by text("class") // case is not ignored by default
+```
+* Regex:
+```kotlin
+val whitespaces by regex("\\s+", setOf(RegexOption.MULTILINE)).ignored()
+val name by regex("[A-Za-z_]+") // no regex options by default
+```
+* Char predicate:
+```kotlin
+val digits by chars { it.isDigit() }
+```
+* General token type:
+```kotlin
+val beforeLastChar by tokenType { input -> input.substringBeforeLast(char).length }
+val findStr by tokenType { input, fromIndex -> input.find(str, fromIndex) }
+
+val myType: TokenType = getTokenType()
+val myTokenType by tokenType(myType)
+```
 
 Each provider takes the name of the created token type from the name of the property.
 
