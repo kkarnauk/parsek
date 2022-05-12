@@ -1,9 +1,7 @@
 package io.github.kkarnauk.parsek.parser.combinator
 
-import io.github.kkarnauk.parsek.info.EmptyLocation
 import io.github.kkarnauk.parsek.info.Location
 import io.github.kkarnauk.parsek.parser.*
-import io.github.kkarnauk.parsek.parser.AbstractParserTest
 import io.github.kkarnauk.parsek.token.Token
 import io.github.kkarnauk.parsek.token.type.CharPredicateTokenType
 import io.github.kkarnauk.parsek.token.type.CharTokenType
@@ -64,7 +62,7 @@ internal class SeparatedTest : AbstractParserTest<OrdinaryParser<*>>() {
         parser = separated(letter, space)
         fromIndex = 1
         tokenProducer = produceTokens(describeToken(letter, 0, 1))
-        expected = unexpectedEofFailure(EmptyLocation, letter)
+        expected = unexpectedEofFailure(Location(0, 1, 1), letter)
     }
 
     @Test

@@ -1,7 +1,7 @@
 package io.github.kkarnauk.parsek.parser.combinator
 
 import io.github.kkarnauk.parsek.exception.ParserInitializationException
-import io.github.kkarnauk.parsek.info.EmptyLocation
+import io.github.kkarnauk.parsek.info.Location
 import io.github.kkarnauk.parsek.parser.AbstractParserTest
 import io.github.kkarnauk.parsek.parser.OrdinaryParser
 import io.github.kkarnauk.parsek.parser.ParsedValue
@@ -94,7 +94,7 @@ internal class RepeatTest : AbstractParserTest<OrdinaryParser<*>>() {
             describeToken(a, 0, 1),
             describeToken(a, 1, 1)
         )
-        expected = unexpectedEofFailure(EmptyLocation, a)
+        expected = unexpectedEofFailure(Location(1, 1, 2), a)
     }
 
     @Test

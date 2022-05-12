@@ -47,7 +47,8 @@ public fun TokenProducer.indexed(): IndexedTokenProducer = when (this) {
     else -> object : IndexedTokenProducer {
         private val tokens = mutableListOf<Token>()
 
-        override val lastToken: Token? = tokens.lastOrNull()
+        override val lastToken: Token?
+            get() = tokens.lastOrNull()
 
         override fun nextToken(): Token? = this@indexed.nextToken()?.also { tokens += it }
 
