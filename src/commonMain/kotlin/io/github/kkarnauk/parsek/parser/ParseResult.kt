@@ -49,7 +49,7 @@ public interface ParseFailure : ParseResult<Nothing> {
 /**
  * Represents a failure while parsing with knowing exact location where it failed.
  */
-public interface LocatedParseError : ParseFailure {
+public interface LocatedParseFailure : ParseFailure {
     /**
      * Directly the location of failure.
      */
@@ -63,7 +63,7 @@ public data class MismatchTokenTypeFailure(
     override val location: Location,
     private val expected: TokenType,
     private val actual: TokenType
-) : LocatedParseError {
+) : LocatedParseFailure {
     override val message: String
         get() = "Token mismatch at $location: expected=$expected, actual=$actual."
 }
@@ -71,14 +71,14 @@ public data class MismatchTokenTypeFailure(
 /**
  * Represents a failure at [location] when a parser expected token [expected] but got EOF.
  */
-public fun unexpectedEofFailure(location: Location, expected: TokenType): LocatedParseError {
+public fun unexpectedEofFailure(location: Location, expected: TokenType): LocatedParseFailure {
     return MismatchTokenTypeFailure(location, expected, EofTokenType)
 }
 
 public data class NoSuchAlternativeFailure(
     override val location: Location,
     private val alternativeFailures: List<ParseFailure>
-) : LocatedParseError {
+) : LocatedParseFailure {
     // TODO nicer message
     override val message: String
         get() = "No such appropriate alternative at $location:\n" +
@@ -87,7 +87,7 @@ public data class NoSuchAlternativeFailure(
 
 public data class UnparsedRemainderFailure(
     private val nextToken: Token
-) : LocatedParseError {
+) : LocatedParseFailure {
     override val location: Location
         get() = nextToken.location
 
